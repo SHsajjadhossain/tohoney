@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{HomeController, ProfileController};
+use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
+Route::get('/', [FrontendController::class, 'index'])->name('frontend');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/mail/box', [HomeController::class, 'mailbox'])->name('mailbox');
 Route::get('/send/mail/{id}', [HomeController::class, 'sendmail'])->name('sendmail');
@@ -29,3 +26,5 @@ Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 Route::post('/profile/name/change', [ProfileController::class, 'namechange'])->name('profile.namechange');
 Route::post('/profile/password/change', [ProfileController::class, 'passwordchange'])->name('passwordchange');
 Route::post('/profile/photo/change', [ProfileController::class, 'photochange'])->name('profile.photochange');
+
+Route::resource('category', CategoryController::class);

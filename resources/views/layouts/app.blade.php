@@ -59,16 +59,39 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('frontend') }}">
+                    <i class="fas fa-fw fa-globe"></i>
+                    <span>Visti Website</span>
+                </a>
+            </li>
             @if (auth()->user()->role == 2)
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Category</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Category Components:</h6>
+                            <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a>
+                            <a class="collapse-item" href="cards.html">List Category</a>
+                        </div>
+                    </div>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('mailbox') }}">
                         <i class="fas fa-fw fa-envelope"></i>
                         <span>Mail Box</span>
                     </a>
                 </li>
+
             @endif
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
@@ -80,7 +103,7 @@
                         <a class="collapse-item" href="cards.html">Cards</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
