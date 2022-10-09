@@ -8,9 +8,9 @@
 
     // toggle
     $('#toggle1').on("click", function() {
-        $('.create-account').slideToggle();
-    })
-    // toggle
+            $('.create-account').slideToggle();
+        })
+        // toggle
     $('#toggle2').on("click", function() {
         $('#open2').slideToggle();
     })
@@ -424,8 +424,8 @@
     });
 
     /*------------------------------------------
-        = COUNTDOWN CLOCK
--------------------------------------------*/
+            = COUNTDOWN CLOCK
+    -------------------------------------------*/
     if ($("#clock").length) {
         $('#clock').countdown('2020/12/25', function(event) {
             var $this = $(this).html(event.strftime('' +

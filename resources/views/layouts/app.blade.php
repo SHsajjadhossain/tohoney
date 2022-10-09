@@ -77,7 +77,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Category Components:</h6>
                             <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a>
-                            <a class="collapse-item" href="cards.html">List Category</a>
+                            <a class="collapse-item" href="{{ route('category.index') }}">List Category</a>
                         </div>
                     </div>
                 </li>

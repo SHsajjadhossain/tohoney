@@ -17,7 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('category.index',[
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -77,7 +79,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -89,7 +92,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->hasFile('new_category_photo')) {
+            // create photo name
+            $new_category_photo_name = time().'_'.uniqid().Auth::id().'.'.$request->file('new_category_photo')->getClientOriginalExtension();
+            // delete old photo
+            unlink(base_path('public/uploads/category_photoes/' . Category::find($id)->category_photo));
+            // upload new photo
+            Image::make($request->file('new_category_photo'))->resize(600, 470)->save(base_path('public/uploads/category_photoes/'. $new_category_photo_name));
+            // update to database
+            Category::find($id)->update([
+                'category_photo' => $new_category_photo_name,
+            ]);
+        }
+
+        Category::find($id)->update([
+            'category_name' => $request->category_name,
+        ]);
+        return back();
     }
 
     /**
@@ -100,6 +119,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        unlink(base_path('public/uploads/category_photoes/' .$category->category_photo));
+        $category->delete();
+        return back();
     }
 }
