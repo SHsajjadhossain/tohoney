@@ -26,6 +26,7 @@
                                 <th>SL. No</th>
                                 <th>Category Name</th>
                                 <th>Category Photo</th>
+                                <th>Category Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,6 +37,13 @@
                                     <td>{{ $category->category_name }}</td>
                                     <td>
                                         <img width="150" src="{{ asset('uploads/category_photoes').'/'.$category->category_photo }}" alt="Not Found">
+                                    </td>
+                                    <td>
+                                        @if ($category->status == "show")
+                                            <span class="badge badge-success" style="width: 70px; padding: 10px">Show</span>
+                                        @else
+                                            <span class="badge badge-danger" style="width: 70px; padding: 10px">Hide</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('category.edit', $category->id) }}" class="btn btn-info btn-sm">Edit</a>

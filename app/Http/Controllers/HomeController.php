@@ -30,6 +30,7 @@ class HomeController extends Controller
             'total_users' => User::count(),
             'total_admin' => User::where('role', 2)->count(),
             'total_customers' => User::where('role', 1)->count(),
+            'total_vendors' => User::where('role', 3)->count(),
         ]);
     }
 

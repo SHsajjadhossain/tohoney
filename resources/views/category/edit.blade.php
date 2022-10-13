@@ -22,8 +22,15 @@
                         @csrf
                         @method('PATCH')
                         <div class="form-group">
+                            <label>Category Status</label>
+                            <select name="status" class="form-control">
+                                <option value="show"{{ ($category->status == "show")? 'selected': '' }}>Show</option>
+                                <option value="hide"{{ ($category->status == "hide")? 'selected': '' }}>Hide</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Category Name</label>
-                            <input type="text" class="form-control @error('category_name')   is-invalid @enderror" name="category_name" value="{{ $category->category_name }}" placeholder="Enter category name">
+                            <input type="text" class="form-control @error('category_name')   is-invalid @enderror" name="category_name" value="{{ $category->category_name }}" placeholder="Enter Category Name">
                             @error('category_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

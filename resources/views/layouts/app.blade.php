@@ -11,6 +11,8 @@
 
     <title>SB Admin 2 - Dashboard</title>
 
+    <link rel="icon" type="image" href="{{ asset('frontend/assets/images/favicon.png') }}">
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('dashboard/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -36,7 +38,15 @@
                     <img style="width: 50px;" src="{{ asset('uploads/profile_photoes') }}/{{ auth()->user()->profile_photo }}" alt="">
                 </div>
                 <div class="sidebar-brand-text mx-3" style="font-size: 12px; margin-top: 20px;">{{ auth()->user()->name }}
-                    <p style="color: #858796">{{ (auth()->user()->role == 2 ? 'Admin' : 'Customer') }}</p>
+                    <p style="color: #858796">
+                        @if (auth()->user()->role == 2)
+                            Admin
+                        @elseif (auth()->user()->role == 1)
+                            Customer
+                        @else
+                            Vendor
+                        @endif
+                    </p>
                 </div>
             </a>
 
@@ -83,12 +93,43 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Vendor</span>
+                    </a>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Vendor Components:</h6>
+                            <a class="collapse-item" href="{{ route('vendor.create') }}">Add Vendor</a>
+                            <a class="collapse-item" href="{{ route('vendor.index') }}">List Vendor</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('mailbox') }}">
                         <i class="fas fa-fw fa-envelope"></i>
                         <span>Mail Box</span>
                     </a>
                 </li>
 
+            @endif
+
+            @if (auth()->user()->role == 3)
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Product</span>
+                    </a>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Product Components:</h6>
+                            <a class="collapse-item" href="{{ route('product.create') }}">Add Product</a>
+                            <a class="collapse-item" href="{{ route('product.index') }}">List Product</a>
+                        </div>
+                    </div>
+                </li>
             @endif
 
             {{-- <li class="nav-item">

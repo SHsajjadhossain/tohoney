@@ -44,7 +44,7 @@
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_admin }}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-user-tie fa-3x text-gray-300"></i>
+                                    <i class="fas fa-user-secret fa-3x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -57,16 +57,16 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Customers
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Vendors
                                     </div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $total_customers }}</div>
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $total_vendors }}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-user fa-3x text-gray-300"></i>
+                                    <i class="fas fa-user-tie fa-3x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -80,11 +80,11 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Pending Requests</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        Total Customers</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_customers }}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                    <i class="fas fa-users fa-3x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,10 @@
                                     <i class="fas fa-circle text-primary"></i> Admin
                                 </span>
                                 <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Customers
+                                    <i class="fas fa-circle text-success"></i> Vendor
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-info"></i> Customer
                                 </span>
                             </div>
                         </div>
@@ -167,41 +170,41 @@
 @section('footer_scripts')
 
 <script>
-  // Set new default font family and font color to mimic Bootstrap's default styling
+
+// Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-// "{{ $total_customers }}"
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ["Amin", "Customer"],
-        datasets: [{
-            data: [{{ $total_admin }}, {{ $total_customers }}],
-            backgroundColor: ['#4e73df', '#1cc88a'],
-            hoverBackgroundColor: ['#2e59d9', '#17a673'],
-            hoverBorderColor: "rgba(234, 236, 244, 1)",
-        }],
+  type: 'doughnut',
+  data: {
+    labels: ["Admin", "Vendor", "Custormer"],
+    datasets: [{
+      data: [{{ $total_admin }}, {{ $total_vendors }}, {{ $total_customers }}],
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      hoverBorderColor: "rgba(234, 236, 244, 1)",
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      caretPadding: 10,
     },
-    options: {
-        maintainAspectRatio: false,
-        tooltips: {
-            backgroundColor: "rgb(255,255,255)",
-            bodyFontColor: "#858796",
-            borderColor: '#dddfeb',
-            borderWidth: 1,
-            xPadding: 15,
-            yPadding: 15,
-            displayColors: false,
-            caretPadding: 10,
-        },
-        legend: {
-            display: false
-        },
-        cutoutPercentage: 80,
+    legend: {
+      display: false
     },
+    cutoutPercentage: 80,
+  },
 });
 
 </script>

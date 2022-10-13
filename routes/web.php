@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController};
+use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +28,5 @@ Route::post('/profile/password/change', [ProfileController::class, 'passwordchan
 Route::post('/profile/photo/change', [ProfileController::class, 'photochange'])->name('profile.photochange');
 
 Route::resource('category', CategoryController::class);
+Route::resource('vendor', VendorController::class);
+Route::resource('product', ProductController::class);
