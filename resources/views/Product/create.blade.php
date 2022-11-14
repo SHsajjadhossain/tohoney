@@ -82,6 +82,14 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label>Product Thumbnails</label>
+                        <input type="file" class="form-control @error('product_thumbnails')   is-invalid @enderror"
+                            name="product_thumbnails[]" multiple>
+                        @error('product_thumbnails')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <button type="submit" class="btn btn-primary">Add New Product</button>
                 </form>
             </div>

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Product_thumbnail;
 use Carbon\Carbon;
+use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Image;
 
 class ProductController extends Controller
@@ -18,7 +21,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('Product.index',[
+            'products' => Product::where('user_id', auth()->id())->get(),
+        ]);
     }
 
     /**
@@ -48,15 +53,18 @@ class ProductController extends Controller
             'product_short_description' => 'required',
             'product_code' => 'required',
             'product_long_description' => 'required',
-            'product_photo' => 'required',
+            'product_photo' => 'required | image',
+            'product_thumbnails' => 'required',
         ]);
+
+
 
         // Product photo upload start
         $new_product_photo = time() . '_' . uniqid() . Auth::id() . '.' . $request->file('product_photo')->getClientOriginalExtension();
         Image::make($request->file('product_photo'))->resize(600, 470)->save(base_path('public/uploads/product_photoes/' . $new_product_photo));
         // Product photo upload end
 
-        Product::insert([
+        $product_id = Product::insertGetId([
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'product_name' => $request->product_name,
@@ -65,8 +73,21 @@ class ProductController extends Controller
             'product_code' => $request->product_code,
             'product_long_description' => $request->product_long_description,
             'product_photo' => $new_product_photo,
+            'product_slug' => Str::slug($request->product_name) . "-" . Str::random(5) . auth()->id(),
             'created_at' => Carbon::now(),
         ]);
+
+        foreach ($request->file('product_thumbnails') as $product_thumbnail) {
+            // product thumbnail upload start
+            $new_product_thumbnail = time() . '_' . uniqid() . $product_id . '.' . $product_thumbnail->getClientOriginalExtension();
+            Image::make($product_thumbnail)->resize(600, 550)->save(base_path('public/uploads/product_thumbnails/' . $new_product_thumbnail));
+            // product thumbnail upload end
+            Product_thumbnail::insert([
+                'product_id' => $product_id,
+                'product_thumbnail_name' => $new_product_thumbnail,
+                'created_at' =>Carbon::now(),
+            ]);
+        }
 
         return back();
 

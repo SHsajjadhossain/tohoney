@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController};
+use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController, WishlistController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [FrontendController::class, 'index'])->name('frontend');
+Route::get('product/details/{slug}', [FrontendController::class, 'productdetails'])->name('productdetails');
+Route::get('shoppage', [FrontendController::class, 'shoppage'])->name('shoppage');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/mail/box', [HomeController::class, 'mailbox'])->name('mailbox');
 Route::get('/send/mail/{id}', [HomeController::class, 'sendmail'])->name('sendmail');
@@ -30,3 +32,6 @@ Route::post('/profile/photo/change', [ProfileController::class, 'photochange'])-
 Route::resource('category', CategoryController::class);
 Route::resource('vendor', VendorController::class);
 Route::resource('product', ProductController::class);
+Route::resource('wishlist', WishlistController::class);
+Route::get('/wishlist/insert/{product_id}', [WishlistController::class, 'insert'])->name('wishlist.insert');
+Route::get('/wishlist/remove/{wishlist_id}', [WishlistController::class, 'remove'])->name('wishlist.remove');

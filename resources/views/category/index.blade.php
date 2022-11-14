@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                                @foreach ($categories as $category)
+                                @forelse ($categories as $category)
                                 <tr>
                                     <td>{{ $loop->index +1 }}</td>
                                     <td>{{ $category->category_name }}</td>
@@ -54,7 +54,13 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="50" class="text-center alert alert-danger">
+                                        <span class="text-danger">No Category available</span>
+                                    </td>
+                                </tr>
+                                @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($allvendors as $vendor)
+                            @forelse ($allvendors as $vendor)
                                 <tr>
                                     <td>{{ $loop->index +1 }}</td>
                                     <td>{{ $vendor->relationTouser->name }}</td>
@@ -41,7 +41,13 @@
                                         <a class="btn btn-success btn-sm" href="{{ route('vendor.show', $vendor->id) }}">Details</a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="50" class="text-center alert alert-danger">
+                                    <span class="text-danger">No Vendor available</span>
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
