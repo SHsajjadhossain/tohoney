@@ -5,6 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Tohoney - Home Page</title>
     <meta name="description" content="">
+    @yield('og_image')
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
     <!-- Place favicon.ico in the root directory -->
@@ -135,65 +136,49 @@
                                 <a href="javascript:void(0);"><i class="flaticon-like"></i> </a>
                                 {{-- <span>2</span> --}}
                                 <ul class="wish-wrap dropdown_style">
-                                    @forelse (App\Models\Wishlist::where('user_id', auth()->id())->limit(3)->get() as $wishlist)
+                                    @forelse (allwishlists() as $wishlist)
                                         <li class="cart-items">
                                             <div class="cart-img">
-                                                <img src="{{ asset('uploads/product_photoes') }}/{{ App\Models\Product::find($wishlist->product_id)->product_photo}}" alt="">
+                                                <img src="{{ asset('uploads/product_photoes') }}/{{ $wishlist->relationtoproduct->product_photo}}" alt="">
                                             </div>
                                             <div class="cart-content">
-                                                <a href="cart.html">{{ App\Models\Product::find($wishlist->product_id)->product_name }}</a>
+                                                <a href="cart.html">{{ $wishlist->relationtoproduct->product_name }}</a>
                                                 {{-- <span>QTY : 1</span> --}}
-                                                <p>${{ App\Models\Product::find($wishlist->product_id)->product_price}}</p>
+                                                <p>${{ $wishlist->relationtoproduct->product_price}}</p>
                                                 <a href="{{ route('wishlist.remove', $wishlist->id) }}"><i class="fa fa-times"></i></a>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('wishlist.index') }}" class="view-wishlist">View Wishlist</a>
                                         </li>
                                     @empty
                                         <span class="text-danger">No Product To Show</span>
                                     @endforelse
+                                    @auth
+                                        <li>
+                                            <a href="{{ route('wishlist.index') }}" class="view-wishlist">View Wishlist</a>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>3</span></a>
+                                <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>{{ cartcount() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{ asset('frontend') }}/assets/images/cart/1.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{ asset('frontend') }}/assets/images/cart/3.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{ asset('frontend') }}/assets/images/cart/2.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li>Subtotol: <span class="pull-right">$70.00</span></li>
+                                    @forelse (allcarts() as $cart)
+                                        <li class="cart-items">
+                                            <div class="cart-img">
+                                                <img src="{{ asset('uploads/product_photoes') }}/{{ $cart->relationtoproduct->product_photo }}" alt="Not Found">
+                                            </div>
+                                            <div class="cart-content">
+                                                <a href="cart.html">{{ $cart->relationtoproduct->product_name }}</a>
+                                                <span> {{ $cart->amount }} x {{ $cart->relationtoproduct->product_price }}</span>
+                                                <p>${{ $cart->amount * $cart->relationtoproduct->product_price }}</p>
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                        </li>
+                                    @empty
+
+                                    @endforelse
+                                    <li>Subtotal: <span class="pull-right">$70.00</span></li>
                                     <li>
-                                        <button>Check Out</button>
+                                        <button>View Cart</button>
                                     </li>
                                 </ul>
                             </li>

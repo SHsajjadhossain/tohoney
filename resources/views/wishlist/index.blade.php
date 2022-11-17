@@ -36,16 +36,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($wishlists as $wishlist )
+                                @forelse ($wishlists as $wishlist )
                                     <tr>
                                         <td class="images"><img src="{{ asset('uploads/product_photoes') }}/{{ $wishlist->relationtoproduct->product_photo }}" alt=""></td>
                                         <td class="product"><a>{{ $wishlist->relationtoproduct->product_name }}</a></td>
                                         <td class="ptice">${{ $wishlist->relationtoproduct->product_price }}</td>
                                         <td class="stock">In Stock</td>
-                                        <td class="addcart"><a href="cart.html">Add to Cart</a></td>
+                                        <td class="addcart"><a href="{{ route('addtocart', $wishlist->id) }}">Add to Cart</a></td>
                                         <td class="remove"><a href="{{ route('wishlist.remove', $wishlist->id) }}"><i class="fa fa-times"></i></a></td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="50">
+                                            <span class="text-danger">No Product To Show</span>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </form>

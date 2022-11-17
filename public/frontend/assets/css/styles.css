@@ -551,7 +551,7 @@ header-area start
 }
 
 .search-cart-wrapper li>ul.cart-wrap {
-    width: 250px;
+    width: 350px;
     background: #333;
     right: 0;
     padding: 20px;
@@ -646,6 +646,15 @@ header-area start
     color: #fff;
 }
 
+
+/* .cart-wrap {
+    width: 100%;
+} */
+
+.table-responsive {
+    display: inline-table;
+}
+
 .cart-wrap li {
     padding: 0;
 }
@@ -660,8 +669,13 @@ header-area start
 }
 
 .cart-img {
+    width: 30%;
     float: left;
     margin-right: 15px;
+}
+
+.cart-img img {
+    width: 100%;
 }
 
 .cart-wrap li .cart-content {

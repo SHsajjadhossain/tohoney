@@ -1,5 +1,11 @@
 @extends('layouts.app_frontend')
 
+@section('og_image')
+
+<meta property="og:image" content="{{ asset('uploads/category_photoes') }}/{{ $single_product_info->product_photo }}">
+
+@endsection
+
 @section('content')
 
  <!-- .breadcumb-area start -->
@@ -26,14 +32,14 @@
                 <div class="col-lg-6">
                     <div class="product-single-img">
                         <div class="product-active owl-carousel">
-                            @foreach (App\Models\Product_thumbnail::where('product_id', $single_product_info->id)->get() as $thumbnail)
+                            @foreach (allproduct_thumbnails($single_product_info->id) as $thumbnail)
                             <div class="item">
                                 <img src="{{ asset('uploads/product_thumbnails'.'/'.$thumbnail->product_thumbnail_name) }}" alt="Not Found">
                             </div>
                             @endforeach
                         </div>
                         <div class="product-thumbnil-active  owl-carousel">
-                            @foreach (App\Models\Product_thumbnail::where('product_id', $single_product_info->id)->get() as $thumbnail)
+                            @foreach (allproduct_thumbnails($single_product_info->id) as $thumbnail)
                             <div class="item">
                                 <img src="{{ asset('uploads/product_thumbnails'.'/'.$thumbnail->product_thumbnail_name) }}" alt="Not Found">
                             </div>

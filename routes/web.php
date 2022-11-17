@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController, WishlistController};
+use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController, WishlistController, CartController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +35,4 @@ Route::resource('product', ProductController::class);
 Route::resource('wishlist', WishlistController::class);
 Route::get('/wishlist/insert/{product_id}', [WishlistController::class, 'insert'])->name('wishlist.insert');
 Route::get('/wishlist/remove/{wishlist_id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/addtocart/{wishlist_id}', [CartController::class, 'addtocart'])->name('addtocart');
