@@ -52,6 +52,7 @@ class ProductController extends Controller
             'product_price' => 'required',
             'product_short_description' => 'required',
             'product_code' => 'required',
+            'product_quantity' => 'required',
             'product_long_description' => 'required',
             'product_photo' => 'required | image',
             'product_thumbnails' => 'required',
@@ -74,6 +75,7 @@ class ProductController extends Controller
             'product_long_description' => $request->product_long_description,
             'product_photo' => $new_product_photo,
             'product_slug' => Str::slug($request->product_name) . "-" . Str::random(5) . auth()->id(),
+            'product_quantity' => $request->product_quantity,
             'created_at' => Carbon::now(),
         ]);
 

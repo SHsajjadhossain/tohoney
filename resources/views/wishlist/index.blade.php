@@ -42,7 +42,7 @@
                                         <td class="product"><a>{{ $wishlist->relationtoproduct->product_name }}</a></td>
                                         <td class="ptice">${{ $wishlist->relationtoproduct->product_price }}</td>
                                         <td class="stock">In Stock</td>
-                                        <td class="addcart"><a href="{{ route('addtocart', $wishlist->id) }}">Add to Cart</a></td>
+                                        <td class="addcart"><a href="{{ route('wishtocart', $wishlist->id) }}">Add to Cart</a></td>
                                         <td class="remove"><a href="{{ route('wishlist.remove', $wishlist->id) }}"><i class="fa fa-times"></i></a></td>
                                     </tr>
                                 @empty

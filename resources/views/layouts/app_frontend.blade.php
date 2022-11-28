@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/metisMenu.min.css') }}">
     <!-- swiper.min.css -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/swiper.min.css') }}">
+    <!-- select.min.css -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- style css -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/styles.css') }}">
     <!-- responsive css -->
@@ -161,7 +163,7 @@
                             <li>
                                 <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>{{ cartcount() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
-                                    @forelse (allcarts() as $cart)
+                                    @forelse (allwishtocarts() as $cart)
                                         <li class="cart-items">
                                             <div class="cart-img">
                                                 <img src="{{ asset('uploads/product_photoes') }}/{{ $cart->relationtoproduct->product_photo }}" alt="Not Found">
@@ -170,7 +172,7 @@
                                                 <a href="cart.html">{{ $cart->relationtoproduct->product_name }}</a>
                                                 <span> {{ $cart->amount }} x {{ $cart->relationtoproduct->product_price }}</span>
                                                 <p>${{ $cart->amount * $cart->relationtoproduct->product_price }}</p>
-                                                <i class="fa fa-times"></i>
+                                                <a href="{{ route('cart.remove', $cart->id) }}"><i class="fa fa-times"></i></a>
                                             </div>
                                         </li>
                                     @empty
@@ -178,7 +180,7 @@
                                     @endforelse
                                     <li>Subtotal: <span class="pull-right">$70.00</span></li>
                                     <li>
-                                        <button>View Cart</button>
+                                        <a href="{{ route('cart') }}" class="view-cart">View Cart</a>
                                     </li>
                                 </ul>
                             </li>
@@ -392,12 +394,15 @@
     <script src="{{ asset('frontend/assets/js/swiper.min.js') }}"></script>
     <!-- metisMenu.min.js -->
     <script src="{{ asset('frontend/assets/js/metisMenu.min.js') }}"></script>
+    <!-- select2.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- mailchimp.js -->
     <script src="{{ asset('frontend/assets/js/mailchimp.js') }}"></script>
     <!-- jquery-ui.min.js -->
     <script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}"></script>
     <!-- main js -->
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
+    @yield('footer_scripts')
 </body>
 
 

@@ -66,6 +66,14 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label>Product Quantity</label>
+                        <input type="number" class="form-control @error('product_quantity')   is-invalid @enderror"
+                            name="product_quantity" placeholder="Enter product quantity">
+                        @error('product_code')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label>Product Long Descripton</label>
                         <textarea name="product_long_description"
                             class="form-control  @error('product_long_description')   is-invalid @enderror" rows="4"

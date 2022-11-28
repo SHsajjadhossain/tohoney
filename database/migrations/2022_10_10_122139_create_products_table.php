@@ -24,6 +24,7 @@ return new class extends Migration
             $table->longText('product_long_description');
             $table->string('product_photo');
             $table->longText('product_slug');
+            $table->integer('product_quantity');
             $table->timestamps();
         });
     }

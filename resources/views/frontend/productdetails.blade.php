@@ -50,6 +50,11 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="product-single-content">
+                        @if (session('stockout'))
+                            <div class="alert alert-danger">
+                                {{ session('stockout') }}
+                            </div>
+                        @endif
                         <h3>{{ $single_product_info->product_name }}</h3>
                         <div class="rating-wrap fix">
                             <span class="pull-left">${{ $single_product_info->product_price }}</span>
@@ -63,33 +68,36 @@
                             </ul>
                         </div>
                         <p>{{ $single_product_info->product_short_description }}</p>
-                        <ul class="input-style">
-                            <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
-                            </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
-
-                            @auth
-                                @if ($wishlist_status)
-                                    <li>
-                                        <a href="{{ route('wishlist.remove', $wishlist_id) }}" class="wishlist">
-                                            <i class="fa fa-heart text-danger"></i>
-                                        </a>
+                        <form action="{{ route('addtocart', $single_product_info->id) }}" method="POST">
+                            @csrf
+                            <ul class="input-style">
+                                    <li class="quantity cart-plus-minus">
+                                        <input type="text" name="qybutton" value="1" />
                                     </li>
-                                @else
-                                    <li>
-                                        <a href="{{ route('wishlist.insert', $single_product_info->id) }}" class="wishlist">
-                                        <i class="fa fa-heart"></i>
-                                        </a>
-                                    </li>
-                                @endif
-                            @endauth
+                                    <li><button type="submit">Add to Cart</button></li>
+                                </form>
 
-                            @guest
-                                <li><a href="{{ route('login') }}" class="wishlist"><i class="fa fa-heart"></i></a></li>
-                            @endguest
+                                @auth
+                                    @if ($wishlist_status)
+                                        <li>
+                                            <a href="{{ route('wishlist.remove', $wishlist_id) }}" class="wishlist">
+                                                <i class="fa fa-heart text-danger"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ route('wishlist.insert', $single_product_info->id) }}" class="wishlist">
+                                            <i class="fa fa-heart"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endauth
 
-                        </ul>
+                                @guest
+                                    <li><a href="{{ route('login') }}" class="wishlist"><i class="fa fa-heart"></i></a></li>
+                                @endguest
+
+                            </ul>
 
                         <ul class="cetagory">
                             <li>Category :</li>
@@ -98,6 +106,9 @@
                                     {{ $single_product_info->relationtocategory->category_name }}
                                 </a>
                             </li>
+                        </ul>
+                        <ul class="cetagory">
+                            <li>Available Stock : {{ $single_product_info->product_quantity }}</li>
                         </ul>
                         <ul class="socil-icon">
                             <li>Share :</li>
