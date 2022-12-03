@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Tohoney - Home Page</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     @yield('og_image')
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/metisMenu.min.css') }}">
     <!-- swiper.min.css -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/swiper.min.css') }}">
+    <!-- toastr.min.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <!-- select.min.css -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- style css -->
@@ -392,6 +395,8 @@
     <script src="{{ asset('frontend/assets/js/countdown.js') }}"></script>
     <!-- swiper.min.js -->
     <script src="{{ asset('frontend/assets/js/swiper.min.js') }}"></script>
+    <!-- toastr.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- metisMenu.min.js -->
     <script src="{{ asset('frontend/assets/js/metisMenu.min.js') }}"></script>
     <!-- select2.min.js -->

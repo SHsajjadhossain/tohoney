@@ -13,6 +13,9 @@
 
     <link rel="icon" type="image" href="{{ asset('frontend/assets/images/favicon.png') }}">
 
+    <!-- select.min.css -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('dashboard/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -118,6 +121,13 @@
                             <a class="collapse-item" href="{{ route('coupon.index') }}">List Coupon</a>
                         </div>
                     </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('location') }}">
+                        <i class="fa fa-map-marker"></i>
+                        <span>Location</span>
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -494,6 +504,9 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('dashboard/assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/demo/chart-pie-demo.js') }}"></script>
+    <!-- select2.min.js -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     @yield('footer_scripts')
 
 </body>

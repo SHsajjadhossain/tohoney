@@ -20,10 +20,14 @@ Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('frontend');
 Route::get('product/details/{slug}', [FrontendController::class, 'productdetails'])->name('productdetails');
 Route::get('shoppage', [FrontendController::class, 'shoppage'])->name('shoppage');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/mail/box', [HomeController::class, 'mailbox'])->name('mailbox');
 Route::get('/send/mail/{id}', [HomeController::class, 'sendmail'])->name('sendmail');
 Route::post('/check/mail', [HomeController::class, 'checkmail'])->name('checkmail');
+Route::get('/location', [HomeController::class, 'location'])->name('location');
+Route::post('/location/update', [HomeController::class, 'updatelocation'])->name('location.update');
+
 Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 Route::post('/profile/name/change', [ProfileController::class, 'namechange'])->name('profile.namechange');
 Route::post('/profile/password/change', [ProfileController::class, 'passwordchange'])->name('passwordchange');
@@ -46,3 +50,4 @@ Route::post('/cart/update', [CartController::class, 'cartupdate'])->name('cartup
 
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'checkoutpost'])->name('checkoutpost');
+Route::post('/get/city/list', [CheckoutController::class, 'get_city_list'])->name('get_city_list');

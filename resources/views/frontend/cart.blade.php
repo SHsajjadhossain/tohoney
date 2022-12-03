@@ -122,6 +122,12 @@
                                 <h3>Cart Totals</h3>
                                 <ul>
                                     @php
+                                        if ($coupon_name) {
+                                            Session::put('s_coupon_name', $coupon_name);
+                                        }
+                                        else {
+                                            Session::put('s_coupon_name', '');
+                                        }
                                         Session::put('s_cart_total', $cart_total);
                                         Session::put('s_discount_total', $discount_total);
                                     @endphp
@@ -183,5 +189,9 @@
         $('#grand_total').html(parseInt($('#sub_total').html())+0);
         $('#checkout_btn').removeClass('d-none');
     });
+
+    @if (session('final_success'))
+        toastr.success("{{ session('final_success') }}");
+    @endif
 </script>
 @endsection

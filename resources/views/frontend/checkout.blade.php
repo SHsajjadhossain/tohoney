@@ -30,51 +30,64 @@
                         <form action="">
                             <div class="row">
                                 <div class="col-sm-12 col-12">
-                                    <p>Full Name *</p>
-                                    <input type="text" name="name" value="{{ auth()->user()->name }}">
+                                    <p class="check-label">Full Name *</p>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ auth()->user()->name }}">
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
-                                    <p>Email Address *</p>
-                                    <input type="text" name="email" value="{{ auth()->user()->email }}">
+                                    <p class="check-label">Email Address *</p>
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ auth()->user()->email }}">
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 col-12">
-                                    <p>Phone No. *</p>
-                                    <input type="text" name="phone_number" value="{{ auth()->user()->phone_number }}">
+                                    <p class="check-label">Phone No. *</p>
+                                    <input type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ auth()->user()->phone_number }}">
+                                    @error('phone_number')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label>Country *</label>
-                                        <select id="country_dropdown" name="country">
+                                    <label class="check-label">Country *</label>
+                                        <select id="country_dropdown" class="form-control @error('country') is-invalid @enderror" name="country">
                                             <option value="">Select a country</option>
                                             @foreach ($countries as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('country')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     {{-- <p>Country *</p>
                                     <input type="text"> --}}
                                 </div>
                                 <div class="col-sm-12 col-12">
-                                    <label class="city_d">Town/City *</label>
-                                        <select id="city_dropdown" name="city">
-                                            <option value="1">Select a city</option>
-                                            <option value="2">bangladesh</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">Afghanistan</option>
-                                            <option value="5">Ghana</option>
-                                            <option value="6">Albania</option>
-                                            <option value="7">Bahrain</option>
-                                            <option value="8">Colombia</option>
-                                            <option value="9">Dominican Republic</option>
+                                    <label class="city_d check-label">Town/City *</label>
+                                        <select id="city_dropdown" class="form-control @error('city') is-invalid @enderror" name="city" disabled>
+                                            <option value=''>--Select a city--</option>
                                         </select>
+                                        @error('city')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     {{-- <p>Town/City *</p>
                                     <input type="text"> --}}
                                 </div>
                                 <div class="col-12">
-                                    <p class="c_address">Your Address *</p>
-                                    <input type="text" name="address">
+                                    <p class="c_address check-label">Your Address *</p>
+                                    <input type="text" class="form-control @error('address') is-invalid @enderror" name="address">
+                                    @error('address')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-12 col-sm-12">
-                                    <p>Postcode/ZIP</p>
-                                    <input type="text" name="postcode">
+                                    <p class="check-label">Postcode/ZIP</p>
+                                    <input type="text" class="form-control @error('postcode') is-invalid @enderror" name="postcode">
+                                    @error('postcode')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 {{-- <div class="col-12">
                                     <input id="toggle1" type="checkbox">
@@ -145,7 +158,7 @@
                                     </div>
                                 </div> --}}
                                 <div class="col-12">
-                                    <p>Order Notes </p>
+                                    <p class="check-label">Order Notes </p>
                                     <textarea name="order_notes" placeholder="Notes about Your Order, e.g.Special Note for Delivery"></textarea>
                                 </div>
                             </div>
@@ -162,31 +175,26 @@
                             <li class="text-danger">No Product To Show</li>
                             @endforelse
                             <li>Cart total <span class="pull-right"><strong>${{ Session::get('s_cart_total') }}</strong></span></li>
-                            <li>Discount total <span class="pull-right"><strong>${{ Session::get('s_discount_total') }}</strong></span></li>
+                            <li>Discount total ({{ Session::get('s_coupon_name') }})<span class="pull-right"><strong>${{ Session::get('s_discount_total') }}</strong></span></li>
                             <li>Subtotal <span class="pull-right"><strong>${{ $sub_total = round(Session::get('s_cart_total') - Session::get('s_discount_total')) }}</strong></span></li>
-                            <li>Shipping <span class="pull-right">$0</span></li>
-                            {{-- {{  $total_shipping = Session::get('s_total_shipping') }} --}}
-                            <li>Grand Total<span class="pull-right">${{ $sub_total }}</span></li>
+                            <li>Shipping <span class="pull-right">${{  $total_shipping = Session::get('s_total_shipping') }}</span></li>
+                            <li>Grand Total<span class="pull-right">${{ round($sub_total+$total_shipping) }}</span></li>
                         </ul>
                         <ul class="payment-method">
                             <li>
-                                <input id="bank" type="checkbox">
-                                <label for="bank">Direct Bank Transfer</label>
+                                <h4>Payment Option</h4>
                             </li>
                             <li>
-                                <input id="paypal" type="checkbox">
-                                <label for="paypal">Paypal</label>
+                                <input id="payment_btn1" type="radio" name="payment_option" value="1">
+                                <label for="delivery">Cash on Delivery (COD)</label>
                             </li>
+
                             <li>
-                                <input id="card" type="checkbox">
-                                <label for="card">Credit Card</label>
-                            </li>
-                            <li>
-                                <input id="delivery" type="checkbox">
-                                <label for="delivery">Cash on Delivery</label>
+                                <input id="payment_btn2" type="radio" name="payment_option" value="2">
+                                <label for="card">Online Payment</label>
                             </li>
                         </ul>
-                        <button type="submit">Place Order</button>
+                        <button type="submit" id="place_order_btn" class="d-none">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -200,12 +208,39 @@
 
 <script>
     $(document).ready(function() {
-    $('#country_dropdown').select2();
-});
+        $('#country_dropdown').select2();
+        $('#country_dropdown').change(function(){
+            var country_id = $(this).val();
+            $('#city_dropdown').attr('disabled', false);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type : 'POST',
+                url : 'get/city/list',
+                data : {country_id:country_id},
+                success : function(data){
+                    $('#city_dropdown').html(data);
+                }
+            });
+        })
+    });
 
     $(document).ready(function() {
-    $('#city_dropdown').select2();
-});
+        $('#city_dropdown').select2();
+    });
+
+    $('#payment_btn1').click(function(){
+        $('#place_order_btn').removeClass('d-none');
+    });
+
+    $('#payment_btn2').click(function(){
+        $('#place_order_btn').removeClass('d-none');
+    });
+
 </script>
 
 @endsection

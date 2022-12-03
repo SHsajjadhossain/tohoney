@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MailBox;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -51,6 +52,27 @@ class HomeController extends Controller
     {
         foreach ($request->check as $id) {
             Mail::to(User::find($id)->email)->send(new MailBox());
+        }
+        return back();
+    }
+
+    public function location()
+    {
+        return view('location.index',[
+            'countries' => Country::get(['id', 'name', 'status']),
+        ]);
+    }
+
+    public function updatelocation(Request $request)
+    {
+        Country::where('status', 'active')->update([
+            'status' => 'deactive',
+        ]);
+
+        foreach ($request->countries as $country_id) {
+            Country::find($country_id)->update([
+                'status' => "active",
+            ]);
         }
         return back();
     }
