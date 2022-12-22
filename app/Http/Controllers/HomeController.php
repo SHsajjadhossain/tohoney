@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Mail\MailBox;
 use App\Models\Country;
+use App\Models\Order_summery;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\Order_summeryExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -75,5 +79,23 @@ class HomeController extends Controller
             ]);
         }
         return back();
+    }
+
+    public function myorders()
+    {
+        return view('myorders.index',[
+            'order_summeries' => Order_summery::where('user_id', auth()->id())->get()
+        ]);
+    }
+
+    public function invoicedownload ()
+    {
+        $pdf = Pdf::loadView('pdf.invoice');
+        return $pdf->stream('invoice.pdf');
+    }
+
+    public function invoicedownloadexcel ()
+    {
+        return Excel::download(new Order_summeryExport, 'purchase_details.xlsx');
     }
 }

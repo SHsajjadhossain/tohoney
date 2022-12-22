@@ -12,6 +12,7 @@ use App\Models\Order_summery;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -73,13 +74,13 @@ class CheckoutController extends Controller
             Coupon::where('coupon_name', session('s_coupon_name'))->decrement('limit', 1);
         }
 
-        // if ($request->payment_option == 1) {
-        //     echo "COD";
-        // }
-        // else {
-        //     echo "Online Payment";
-        // }
-        return redirect('cart')->with('final_success', 'Your purchase completed successfully!!');
+        if ($request->payment_option == 1) {
+            return redirect('cart')->with('final_success', 'Your purchase completed successfully!!');
+        }
+        else {
+            Session::put('s_order_summery_id', $order_summery_id);
+            return redirect('pay');
+        }
     }
 
     public function get_city_list(Request $request)
