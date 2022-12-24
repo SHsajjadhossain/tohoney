@@ -28,6 +28,7 @@ Route::get('/send/mail/{id}', [HomeController::class, 'sendmail'])->name('sendma
 Route::post('/check/mail', [HomeController::class, 'checkmail'])->name('checkmail');
 Route::get('/location', [HomeController::class, 'location'])->name('location');
 Route::get('/my/orders', [HomeController::class, 'myorders'])->name('my.orders');
+Route::get('/order/details/{id}', [HomeController::class, 'orderdetails'])->name('order.details');
 Route::get('/invoice/download', [HomeController::class, 'invoicedownload'])->name('invoice.download');
 Route::get('/invoice/download/excel', [HomeController::class, 'invoicedownloadexcel'])->name('invoice.download.excel');
 Route::post('/location/update', [HomeController::class, 'updatelocation'])->name('location.update');

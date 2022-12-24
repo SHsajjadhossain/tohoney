@@ -18,7 +18,7 @@
                 My Orders
             </div>
             <div class="card-body">
-                <table class="table table-striped table-inverse table-bordered">
+                <table class="table table-inverse table-bordered">
                     <thead class="thead-inverse">
                         <tr>
                             <th>Order ID</th>
@@ -36,23 +36,23 @@
                                     <td>{{ $order_summery->grand_total }}</td>
                                     <td>
                                         @if ($order_summery->payment_option == 1)
-                                            Cash On Delivery
+                                            <span>Cash On Delivery</span>
                                         @else
-                                            Online Payment
+                                            <span>Online Payment</span>
                                         @endif
                                     </td>
                                     <td>
                                         @if ($order_summery->payment_status == 0)
-                                            Not Paid Yet
+                                            <span class="badge badge-danger">Not Paid Yet</span>
                                         @else
-                                            Paid
+                                            <span class="badge badge-success">Paid</span>
                                         @endif
                                     </td>
                                     <td>
                                         {!! DNS2D::getBarcodeHTML("$order_summery->id", 'QRCODE', 3,3); !!}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-success" href="">Details</a>
+                                        <a class="btn btn-sm btn-success" href="{{ route('order.details', Crypt::encryptString($order_summery->id)) }}">Details</a>
                                         <a class="btn btn-sm btn-info" href="{{ route('invoice.download') }}">Invoice Download PDF</a>
                                         <a class="btn btn-sm btn-warning" href="{{ route('invoice.download.excel') }}">Invoice Download Excel</a>
                                     </td>

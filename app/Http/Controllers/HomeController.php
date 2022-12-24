@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\Order_summeryExport;
+use App\Models\Order_detail;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -97,5 +99,12 @@ class HomeController extends Controller
     public function invoicedownloadexcel ()
     {
         return Excel::download(new Order_summeryExport, 'purchase_details.xlsx');
+    }
+
+    public function orderdetails ($id)
+    {
+        $order_summeries = Order_summery::find(Crypt::decryptString($id));
+        $order_details = Order_detail::where('order_summery_id', Crypt::decryptString($id))->get();
+        return view('myorders.orderdetails', compact('order_summeries', 'order_details'));
     }
 }
