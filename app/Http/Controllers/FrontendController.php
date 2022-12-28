@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,8 @@ class FrontendController extends Controller
             'single_product_info' => Product::where('product_slug', $slug)->firstOrFail(),
             'related_products' => $related_product,
             'wishlist_status' => $wishlist_status,
-            'wishlist_id' => $wishlist_id
+            'wishlist_id' => $wishlist_id,
+            'reivews' => Rating::where('product_id', Product::where('product_slug', $slug)->firstOrFail()->id)->get(),
         ]);
     }
 

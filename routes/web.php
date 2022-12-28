@@ -29,9 +29,12 @@ Route::post('/check/mail', [HomeController::class, 'checkmail'])->name('checkmai
 Route::get('/location', [HomeController::class, 'location'])->name('location');
 Route::get('/my/orders', [HomeController::class, 'myorders'])->name('my.orders');
 Route::get('/order/details/{id}', [HomeController::class, 'orderdetails'])->name('order.details');
+Route::get('/all/orders', [HomeController::class, 'allorders'])->name('all.orders');
+Route::get('/mark/as/recieved/{id}', [HomeController::class, 'markasrecieved'])->name('mark.as.recieved');
 Route::get('/invoice/download', [HomeController::class, 'invoicedownload'])->name('invoice.download');
 Route::get('/invoice/download/excel', [HomeController::class, 'invoicedownloadexcel'])->name('invoice.download.excel');
 Route::post('/location/update', [HomeController::class, 'updatelocation'])->name('location.update');
+Route::post('/rating/{id}', [HomeController::class, 'rating'])->name('rating');
 
 Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 Route::post('/profile/name/change', [ProfileController::class, 'namechange'])->name('profile.namechange');

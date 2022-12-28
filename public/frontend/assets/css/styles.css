@@ -1443,6 +1443,14 @@ header-area start
 .product-content {
     padding-top: 20px;
     overflow: hidden;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    /* padding: 30px 0 0 0; */
+    transition: all .3s ease 0s;
+    align-items: flex-start;
+    /* background-color: #fff */
 }
 
 .product-content h3 {
@@ -2519,7 +2527,7 @@ shop single style here
 .review-content h3 {
     font-size: 16px;
     margin-bottom: 0px;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .review-content h3 a {
@@ -3712,3 +3720,92 @@ ol {
 
 
 /*mobal-subscribe*/
+
+
+/* ratings css start */
+
+.ratings {
+    height: 20px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px
+}
+
+.ratings .rating-wrap {
+    font-size: 14px;
+    line-height: 1;
+    position: relative;
+    color: #e4e4e4;
+    white-space: nowrap
+}
+
+.ratings .single-product-rating {
+    margin-left: 40%;
+}
+
+.ratings .rating-wrap::before {
+    font-family: FontAwesome;
+    content: "    "
+}
+
+.ratings .rating-wrap .star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    color: #ffde00
+}
+
+.ratings .rating-wrap .star::before {
+    font-family: FontAwesome;
+    content: "    "
+}
+
+.ratings .rating-num {
+    font-size: 14px;
+    line-height: 1;
+    margin-left: 6px;
+    color: #9f9e9e
+}
+
+.product .content .ratings {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px
+}
+
+.product .content .ratings .rating-wrap {
+    font-size: 14px;
+    line-height: 1;
+    position: relative;
+    color: #e4e4e4;
+    white-space: nowrap
+}
+
+.product .content .ratings .rating-wrap::before {
+    font-family: FontAwesome;
+    content: "    "
+}
+
+.product .content .ratings .rating-wrap .star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    color: #ffde00
+}
+
+.product .content .ratings .rating-wrap .star::before {
+    font-family: FontAwesome;
+    content: "    "
+}
+
+.product .content .ratings .rating-num {
+    font-size: 14px;
+    line-height: 1;
+    margin-left: 6px;
+    color: #9f9e9e
+}
+
+
+/* ratings css end */

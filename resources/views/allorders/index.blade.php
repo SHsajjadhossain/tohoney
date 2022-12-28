@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb float-right">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">My Orders</li>
+    <li class="breadcrumb-item active">All Orders</li>
 </ol>
 
 @endsection
@@ -61,8 +61,9 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-sm btn-success" href="{{ route('order.details', Crypt::encryptString($order_summery->id)) }}">Details</a>
-                                        <a class="btn btn-sm btn-info" href="{{ route('invoice.download') }}">Invoice Download PDF</a>
-                                        <a class="btn btn-sm btn-warning" href="{{ route('invoice.download.excel') }}">Invoice Download Excel</a>
+                                        @if ($order_summery->payment_status == 1 && $order_summery->delivered_status == 0)
+                                        <a class="btn btn-sm btn-info" href="{{ route('mark.as.recieved', $order_summery->id) }}">Mark as Recieved</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
@@ -82,6 +83,7 @@
 
 
 @endsection
+
 
 
 

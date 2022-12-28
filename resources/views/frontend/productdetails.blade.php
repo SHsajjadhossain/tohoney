@@ -58,14 +58,12 @@
                         <h3>{{ $single_product_info->product_name }}</h3>
                         <div class="rating-wrap fix">
                             <span class="pull-left">${{ $single_product_info->product_price }}</span>
-                            <ul class="rating pull-right">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li>(05 Customar Review)</li>
-                            </ul>
+                            <span class="ratings">
+                                <span class="rating-wrap single-product-rating">
+                                    <span class="star" style="width: {{ rating_percentage($single_product_info->id) }}%"></span>
+                                </span>
+                                <span class="rating-num">( {{ how_many_ratings($single_product_info->id) }} )</span>
+                            </span>
                         </div>
                         <p>{{ $single_product_info->product_short_description }}</p>
                         <form action="{{ route('addtocart', $single_product_info->id) }}" method="POST">
@@ -147,7 +145,7 @@
                         <ul class="nav">
                             <li><a class="active" data-toggle="tab" href="#description">Description</a> </li>
                             <li><a data-toggle="tab" href="#tag">Faq</a></li>
-                            <li><a data-toggle="tab" href="#review">Review</a></li>
+                            <li><a data-toggle="tab" href="#review">Review({{ how_many_ratings($single_product_info->id) }})</a></li>
                         </ul>
                     </div>
                 </div>
@@ -216,112 +214,53 @@
                         <div class="tab-pane" id="review">
                             <div class="review-wrap">
                                 <ul>
-                                    <li class="review-items">
-                                        <div class="review-img">
-                                            <img src="assets/images/comment/1.png" alt="">
-                                        </div>
-                                        <div class="review-content">
-                                            <h3><a href="#">GERALD BARNES</a></h3>
-                                            <span>27 Jun, 2019 at 2:30pm</span>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            <ul class="rating">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="review-items">
-                                        <div class="review-img">
-                                            <img src="assets/images/comment/2.png" alt="">
-                                        </div>
-                                        <div class="review-content">
-                                            <h3><a href="#">Olive Oil</a></h3>
-                                            <span>15 may, 2019 at 2:30pm</span>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            <ul class="rating">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star-half-o"></i></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="review-items">
-                                        <div class="review-img">
-                                            <img src="assets/images/comment/3.png" alt="">
-                                        </div>
-                                        <div class="review-content">
-                                            <h3><a href="#">Nature Honey</a></h3>
-                                            <span>14 janu, 2019 at 2:30pm</span>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            <ul class="rating">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                    @forelse ($reivews as $reivew)
+                                        <li class="review-items">
+                                            <div class="review-img">
+                                                <img width="60px" src="{{ asset('uploads/profile_photoes') }}/{{ $reivew->relationwithuser->profile_photo }}" alt="Not Found">
+                                            </div>
+                                            <div class="review-content">
+                                                <h3><a>{{ $reivew->relationwithuser->name }}</a></h3>
+                                                <span>{{ $reivew->created_at->format('d M Y, h:i a') }}</span>
+                                                <p>{{ $reivew->review }}</p>
+                                                {{-- <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: {{ $reivew->rating * 20 }}%"></span>
+                                                    </span>
+                                                </span> --}}
+                                                <ul class="rating">
+                                                    @if ($reivew->rating == 1)
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    @endif
+                                                    @if ($reivew->rating == 2)
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    @endif
+                                                    @if ($reivew->rating == 3)
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    @endif
+                                                    @if ($reivew->rating == 4)
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    @endif
+                                                    @if ($reivew->rating == 5)
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <span class="text-danger">No Review To Show</span>
+                                    @endforelse
                                 </ul>
-                            </div>
-                            <div class="add-review">
-                                <h4>Add A Review</h4>
-                                <div class="ratting-wrap">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>task</th>
-                                                <th>1 Star</th>
-                                                <th>2 Star</th>
-                                                <th>3 Star</th>
-                                                <th>4 Star</th>
-                                                <th>5 Star</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>How Many Stars?</td>
-                                                <td>
-                                                    <input type="radio" name="a" />
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="a" />
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="a" />
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="a" />
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="a" />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <h4>Name:</h4>
-                                        <input type="text" placeholder="Your name here..." />
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <h4>Email:</h4>
-                                        <input type="email" placeholder="Your Email here..." />
-                                    </div>
-                                    <div class="col-12">
-                                        <h4>Your Review:</h4>
-                                        <textarea name="massage" id="massage" cols="30" rows="10" placeholder="Your review here..."></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn-style">Submit</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

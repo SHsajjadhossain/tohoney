@@ -124,6 +124,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('all.orders') }}">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        <span>All Orders</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('location') }}">
                         <i class="fa fa-map-marker"></i>
                         <span>Location</span>
@@ -171,19 +178,21 @@
             </li> --}}
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    {{-- <i class="fas fa-fw fa-wrench"></i> --}}
-                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                    <span>My Orders</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">My Orders :</h6>
-                        <a class="collapse-item" href="{{ route('my.orders') }}">List Orders</a>
+            @if (auth()->user()->role == 1)
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        {{-- <i class="fas fa-fw fa-wrench"></i> --}}
+                        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                        <span>My Orders</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">My Orders :</h6>
+                            <a class="collapse-item" href="{{ route('my.orders') }}">List Orders</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider">

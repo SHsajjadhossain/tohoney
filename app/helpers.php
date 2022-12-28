@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\User;
 
 function allwishlists()
@@ -39,6 +40,21 @@ function getvendorname($product_id)
 function available_quantity($product_id)
 {
     return Product::find($product_id)->product_quantity;
+}
+
+function how_many_ratings($product_id)
+{
+    if (Rating::where('product_id', $product_id)->count() >= 2) {
+        return Rating::where('product_id', $product_id)->count() ." Reviews";
+    }
+    else {
+        return Rating::where('product_id', $product_id)->count() ." Review";
+    }
+}
+
+function rating_percentage($product_id)
+{
+    return Rating::where('product_id', $product_id)->avg('rating') * 20;
 }
 
 

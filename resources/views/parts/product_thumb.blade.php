@@ -21,16 +21,22 @@
             </div>
         </div>
         <div class="product-content">
-            <h3><a href="{{ route('productdetails', $product->product_slug) }}">{{ $product->product_name }}</a></h3>
-            <p class="pull-left">${{ $product->product_price }}</p>
-            <ul class="pull-right d-flex">
+            {{-- <ul class="pull-right d-flex">
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star-half-o"></i></li>
-            </ul>
-            <p style="margin-right: auto; margin-top: 35px;">Vendor : {{ App\Models\User::find($product->user_id)->name }} </p>
+            </ul> --}}
+            <span class="ratings">
+                <span class="rating-wrap">
+                    <span class="star" style="width: {{ rating_percentage($product->id) }}%"></span>
+                </span>
+                <span class="rating-num">( {{ how_many_ratings($product->id) }} )</span>
+            </span>
+            <h3><a href="{{ route('productdetails', $product->product_slug) }}">{{ $product->product_name }}</a></h3>
+            <p class="pull-left">${{ $product->product_price }}</p>
+            <p style="margin-right: auto; ">Company Name : {{ App\Models\User::find($product->user_id)->name }} </p>
         </div>
     </div>
 </li>

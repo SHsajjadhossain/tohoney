@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\Order_summeryExport;
 use App\Models\Order_detail;
+use App\Models\Rating;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Crypt;
 
@@ -106,5 +108,34 @@ class HomeController extends Controller
         $order_summeries = Order_summery::find(Crypt::decryptString($id));
         $order_details = Order_detail::where('order_summery_id', Crypt::decryptString($id))->get();
         return view('myorders.orderdetails', compact('order_summeries', 'order_details'));
+    }
+
+    public function allorders ()
+    {
+        return view('allorders.index', [
+            'order_summeries' => Order_summery::all(),
+        ]);
+    }
+
+    public function markasrecieved($id)
+    {
+        Order_summery::find($id)->update([
+            'delivered_status' => 1
+        ]);
+        return back();
+    }
+
+    public function rating (Request $request, $id)
+    {
+        Rating::insert([
+            'user_id' => auth()->id(),
+            'product_id' => Order_detail::find($id)->product_id,
+            'order_details_id' => $id,
+            'review' => $request->reivew,
+            'rating' => $request->rate,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back();
     }
 }
