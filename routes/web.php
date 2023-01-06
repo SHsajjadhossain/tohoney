@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController, WishlistController, CartController, CouponController, CheckoutController};
+use App\Http\Controllers\{CategoryController, FrontendController, HomeController, ProfileController, VendorController, ProductController, WishlistController, CartController, CouponController, CheckoutController, GithubController, GoogleController};
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -73,3 +73,13 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+// Login with Github Start
+Route::get('/github/redirect', [GithubController::class, 'githubredirect'])->name('github.redirect');
+Route::get('/github/callback', [GithubController::class, 'githubcallback'])->name('github.callback');
+// Login with Github End
+
+// Login with Google Start
+Route::get('/google/redirect', [GoogleController::class, 'googleredirect'])->name('google.redirect');
+Route::get('/google/callback', [GoogleController::class, 'googlecallback'])->name('google.callback');
+// Login with Google End
